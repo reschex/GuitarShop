@@ -1,14 +1,14 @@
 from src.Order import Order
 from src.Product import Product
+import pytest
 
-
-class TestGuitarShop():
+class TestAddItem():
 
     # Then a temporary hold for the sale quantity is placed
     # on that product’s stock
     def test_hold_is_placed_when_product_added_to_an_order(self):
         order = Order()
-        product = Product(327, 7, 0)
+        product = Product(327, "", 7, 0)
         order.add_item(product, 1)
         assert product.hold == 1
 
@@ -16,6 +16,15 @@ class TestGuitarShop():
     # with that product and sale quantity
     def test_new_item_is_added_to_orders_item_list(self):
         order = Order()
-        product = Product(327, 7, 0)
+        product = Product(327, "", 7, 0)
         order.add_item(product, 1)
         assert order.items[0] == {product: 1}
+
+    # Then an error is raised that the product has insufficient stock
+    def test_insufficient_stock_error_is_raised(self):
+        order = Order()
+        product = Product(327, "Ibanez Tube Screamer", 1, 0)
+        with pytest.raises(ValueError, match="Ibanez Tube Screamer.+1"):
+            order.add_item(product, 2)
+        assert len(order.items) == 0
+        assert product.hold == 0
