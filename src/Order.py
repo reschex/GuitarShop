@@ -3,5 +3,5 @@ class Order():
         self.items = []
 
     def add_item(self, product, quantity):
-        product.hold += 1
+        product.hold += quantity
         self.items.append({product: quantity})
