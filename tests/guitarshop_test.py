@@ -50,7 +50,7 @@ class TestRemoveItem():
     # on that product’s stock
     def test_remove_item_releases_hold_on_product(self):
         order = Order()
-        product = Product(327, description="Ibanez Tube Screamer", stock=2)
+        product = Product(327, stock=2)
         order.add_item(product=product, quantity=2)
         order.remove_item(product)
         assert product.hold == 0
@@ -58,7 +58,7 @@ class TestRemoveItem():
     # And the item is removed from the order’s items list
     def test_remove_item_removes_it_from_order_list(self):
         order = Order()
-        product = Product(327, description="Ibanez Tube Screamer", stock=2)
+        product = Product(327, stock=2)
         order.add_item(product=product, quantity=2)
         order.remove_item(product)
         assert len(order.items) == 0
@@ -71,27 +71,20 @@ class TestTotalNotIncludingShipping():
 
     def test_one_item_total(self):
         order = Order()
-        product = Product(327,
-                          description="Ibanez Tube Screamer",
-                          stock=2,
-                          price=159.95)
+        product = Product(327, stock=2, price=159.95)
         order.add_item(product=product, quantity=1)
         assert order.get_item_total() == product.price
 
     def test_two_items_with_quantity_of_1(self):
         order = Order()
-        guitar1 = Product(327, description="Ibanez Tube Screamer",
-                          stock=7,
-                          price=159.95)
-        guitar2 = Product(811, description="Marshall Amp",
-                          stock=2,
-                          price=1799.00)
+        guitar1 = Product(327, stock=7, price=159.95)
+        guitar2 = Product(811, stock=2, price=1799.00)
         order.add_item(guitar1, 1)
         order.add_item(guitar2, 1)
         assert order.get_item_total() == guitar1.price + guitar2.price
 
     def test_one_item_with_quantity_greater_than_one(self):
         order = Order()
-        guitar1 = Product(327, "Ibanez Tube Screamer", 7, 0, 159.95)
+        guitar1 = Product(327, stock=2, price=159.95)
         order.add_item(guitar1, 2)
         assert order.get_item_total() == guitar1.price * 2
