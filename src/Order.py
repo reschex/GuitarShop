@@ -14,3 +14,6 @@ class Order():
         # this doesn't feel very readable in isolation
         product.hold = product.hold - self.items[product]
         self.items.pop(product)
+
+    def get_item_total(self):
+        return 0

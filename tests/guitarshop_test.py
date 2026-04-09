@@ -59,3 +59,9 @@ class TestRemoveItem():
         order.add_item(product=product, quantity=2)
         order.remove_item(product)
         assert len(order.items) == 0
+
+
+class TestTotalNotIncludingShipping():
+    def test_no_items_total_is_zero(self):
+        order = Order()
+        assert order.get_item_total() == 0
