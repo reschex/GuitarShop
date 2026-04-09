@@ -12,4 +12,4 @@ class Order():
 
     def remove_item(self, product):
         product.hold = 0
-        # self.items = [item for item in self.items if item.id != product.id]
+        self.items.pop(product)
