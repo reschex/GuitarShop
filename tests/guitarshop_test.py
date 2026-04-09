@@ -65,3 +65,9 @@ class TestTotalNotIncludingShipping():
     def test_no_items_total_is_zero(self):
         order = Order()
         assert order.get_item_total() == 0
+
+    def test_one_item_total(self):
+        order = Order()
+        product = Product(327, "Ibanez Tube Screamer", 2, 0, 159.95)
+        order.add_item(product=product, quantity=1)
+        assert order.get_item_total() == product.price

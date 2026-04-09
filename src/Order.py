@@ -16,4 +16,7 @@ class Order():
         self.items.pop(product)
 
     def get_item_total(self):
-        return 0
+        total = 0
+        for item in self.items:
+            total += item.price
+        return total
