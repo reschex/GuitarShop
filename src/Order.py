@@ -3,8 +3,9 @@ class Order():
         self.items = []
 
     def add_item(self, product, quantity):
-        if quantity > product.stock:
+        available_items = product.stock - product.hold
+        if quantity > available_items:
             raise ValueError("Insufficient stock of \
-{}. Only {} currently available.".format(product.description, product.stock))
+{}. Only {} currently available.".format(product.description, available_items))
         product.hold += quantity
         self.items.append({product: quantity})

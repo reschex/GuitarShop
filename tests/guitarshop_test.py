@@ -2,6 +2,7 @@ from src.Order import Order
 from src.Product import Product
 import pytest
 
+
 class TestAddItem():
 
     # Then a temporary hold for the sale quantity is placed
@@ -28,3 +29,13 @@ class TestAddItem():
             order.add_item(product, 2)
         assert len(order.items) == 0
         assert product.hold == 0
+
+    # Insufficient available product stock, stock on hold
+    # And has specified a sale quantity that is greater than that product’s
+    # availablen stock minus the amount of stock on hold,
+    # Then an error is raised that the product has insufficient stock
+    def test_insufficient_stock_error_when_stock_on_hold(self):
+        order = Order()
+        product = Product(327, "Ibanez Tube Screamer", 2, 1)
+        with pytest.raises(ValueError, match="Ibanez Tube Screamer.+1"):
+            order.add_item(product, 2)
