@@ -19,7 +19,7 @@ class TestAddItem():
         order = Order()
         product = Product(327, "", 7, 0)
         order.add_item(product, 1)
-        assert order.items[0] == {product: 1}
+        assert order.items[product] == 1
 
     # Then an error is raised that the product has insufficient stock
     def test_insufficient_stock_error_is_raised(self):
@@ -51,3 +51,11 @@ class TestRemoveItem():
         order.add_item(product=product, quantity=2)
         order.remove_item(product)
         assert product.hold == 0
+
+    # And the item is removed from the order’s items list
+    # def test_remove_item_removes_it_from_order_list(self):
+    #     order = Order()
+    #     product = Product(327, "Ibanez Tube Screamer", 2, 0)
+    #     order.add_item(product=product, quantity=2)
+    #     order.remove_item(product)
+    #     assert len(order.items) == 0

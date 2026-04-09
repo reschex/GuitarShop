@@ -1,6 +1,6 @@
 class Order():
     def __init__(self):
-        self.items = []
+        self.items = {}
 
     def add_item(self, product, quantity):
         available_items = product.stock - product.hold
@@ -8,7 +8,8 @@ class Order():
             raise ValueError("Insufficient stock of \
 {}. Only {} currently available.".format(product.description, available_items))
         product.hold += quantity
-        self.items.append({product: quantity})
+        self.items[product] = quantity
 
     def remove_item(self, product):
         product.hold = 0
+        # self.items = [item for item in self.items if item.id != product.id]
