@@ -11,5 +11,5 @@ class Order():
         self.items[product] = quantity
 
     def remove_item(self, product):
-        product.hold = 0
+        product.hold = product.hold - self.items[product]
         self.items.pop(product)
