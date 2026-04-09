@@ -9,3 +9,6 @@ class Order():
 {}. Only {} currently available.".format(product.description, available_items))
         product.hold += quantity
         self.items.append({product: quantity})
+
+    def remove_item(self, product):
+        product.hold = 0

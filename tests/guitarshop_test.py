@@ -39,3 +39,15 @@ class TestAddItem():
         product = Product(327, "Ibanez Tube Screamer", 2, 1)
         with pytest.raises(ValueError, match="Ibanez Tube Screamer.+1"):
             order.add_item(product, 2)
+
+
+class TestRemoveItem():
+
+    # Then the temporary hold for the item quantity is released
+    # on that product’s stock
+    def test_remove_item_releases_hold_on_product(self):
+        order = Order()
+        product = Product(327, "Ibanez Tube Screamer", 2, 0)
+        order.add_item(product=product, quantity=2)
+        order.remove_item(product)
+        assert product.hold == 0
