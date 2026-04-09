@@ -17,6 +17,6 @@ class Order():
 
     def get_item_total(self):
         total = 0
-        for item in self.items:
-            total += item.price
+        for item, quantity in self.items.items():
+            total += item.price * quantity
         return total

@@ -71,3 +71,17 @@ class TestTotalNotIncludingShipping():
         product = Product(327, "Ibanez Tube Screamer", 2, 0, 159.95)
         order.add_item(product=product, quantity=1)
         assert order.get_item_total() == product.price
+
+    def test_two_items_with_quantity_of_1(self):
+        order = Order()
+        guitar1 = Product(327, "Ibanez Tube Screamer", 7, 0, 159.95)
+        guitar2 = Product(811, "Marshal amp", 2, 0, 1799.00)
+        order.add_item(guitar1, 1)
+        order.add_item(guitar2, 1)
+        assert order.get_item_total() == 1958.95
+
+    def test_one_item_with_quantity_greater_than_one(self):
+        order = Order()
+        guitar1 = Product(327, "Ibanez Tube Screamer", 7, 0, 159.95)
+        order.add_item(guitar1, 2)
+        assert order.get_item_total() == 319.90
