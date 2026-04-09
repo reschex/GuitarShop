@@ -3,10 +3,10 @@ class Order():
         self.items = {}
 
     def add_item(self, product, quantity):
-        available_items = product.stock - product.hold
-        if quantity > available_items:
+        if quantity > product.number_available():
             raise ValueError("Insufficient stock of \
-{}. Only {} currently available.".format(product.description, available_items))
+{}. Only {} currently available.".format(product.description,
+                                         product.number_available()))
         product.hold += quantity
         self.items[product] = quantity
 

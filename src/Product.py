@@ -4,3 +4,6 @@ class Product():
         self.description = description
         self.stock = stock
         self.hold = hold
+
+    def number_available(self):
+        return self.stock - self.hold
