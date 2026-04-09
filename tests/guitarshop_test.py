@@ -78,10 +78,10 @@ class TestTotalNotIncludingShipping():
         guitar2 = Product(811, "Marshal amp", 2, 0, 1799.00)
         order.add_item(guitar1, 1)
         order.add_item(guitar2, 1)
-        assert order.get_item_total() == 1958.95
+        assert order.get_item_total() == guitar1.price + guitar2.price
 
     def test_one_item_with_quantity_greater_than_one(self):
         order = Order()
         guitar1 = Product(327, "Ibanez Tube Screamer", 7, 0, 159.95)
         order.add_item(guitar1, 2)
-        assert order.get_item_total() == 319.90
+        assert order.get_item_total() == guitar1.price * 2
