@@ -112,8 +112,12 @@ class TestConfirmOrder():
         order.confirm()
         assert product1.hold == 0
         assert product2.hold == 0
-    
+
     # And the order’s status is set to Confirmed
-    # def test_order_status_confirmed(self):
-    #     order = Order()
-        
+    def test_order_status_confirmed(self):
+        order = Order()
+        product1 = Product(327, stock=7)
+        order.add_item(product1, 2)
+        assert order.status == "Open"
+        order.confirm()
+        assert order.status == "Confirmed"

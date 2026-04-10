@@ -1,6 +1,7 @@
 class Order():
     def __init__(self):
         self.items = {}
+        self.status = "Open"
 
     def add_item(self, product, quantity):
         if quantity > product.number_available():
@@ -26,3 +27,4 @@ class Order():
         for item, quantity in self.items.items():
             item.stock -= quantity
             item.hold -= quantity
+        self.status = "Confirmed"
