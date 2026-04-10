@@ -7,7 +7,7 @@ class TestAddItem():
 
     # Then a temporary hold for the sale quantity is placed
     # on that product’s stock
-    def test_hold_is_placed_when_product_added_to_an_order(self):
+    def test_hold_is_placed(self):
         order = Order()
         product = Product(327, stock=7)
         order.add_item(product, 1)
@@ -48,7 +48,7 @@ class TestRemoveItem():
 
     # Then the temporary hold for the item quantity is released
     # on that product’s stock
-    def test_remove_item_releases_hold_on_product(self):
+    def test_release_hold_on_product(self):
         order = Order()
         product = Product(327, stock=2)
         order.add_item(product=product, quantity=2)
@@ -56,7 +56,7 @@ class TestRemoveItem():
         assert product.hold == 0
 
     # And the item is removed from the order’s items list
-    def test_remove_item_removes_it_from_order_list(self):
+    def test_remove_from_order_list(self):
         order = Order()
         product = Product(327, stock=2)
         order.add_item(product=product, quantity=2)
@@ -75,7 +75,7 @@ class TestTotalNotIncludingShipping():
         order.add_item(product=product, quantity=1)
         assert order.get_item_total() == product.price
 
-    def test_two_items_with_quantity_of_1(self):
+    def test_two_items_with_quantity_of_one(self):
         order = Order()
         guitar1 = Product(327, stock=7, price=159.95)
         guitar2 = Product(811, stock=2, price=1799.00)
