@@ -21,3 +21,8 @@ class Order():
         for item, quantity in self.items.items():
             total += item.price * quantity
         return total
+
+    def confirm(self):
+        for item, quantity in self.items.items():
+            item.stock -= quantity
+            item.hold -= quantity

@@ -88,3 +88,21 @@ class TestTotalNotIncludingShipping():
         guitar1 = Product(327, stock=2, price=159.95)
         order.add_item(guitar1, 2)
         assert order.get_item_total() == guitar1.price * 2
+
+
+class TestConfirmOrder():
+    # Then the stock of each item’s product as adjusted by the item quantity
+    def test_stock_is_reduced_by_quantity(self):
+        order = Order()
+        product = Product(327, stock=7)
+        order.add_item(product, 1)
+        order.confirm()
+        assert product.stock == 6
+
+    # And the hold on each stock is reduced by the item quantity
+    def test_hold_is_reduced_by_quantity(self):
+        order = Order()
+        product = Product(327, stock=7, hold=1)
+        order.add_item(product, 1)
+        order.confirm()
+        assert product.hold == 1
