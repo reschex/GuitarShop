@@ -1,6 +1,7 @@
 from src.Order import Order
 from src.Product import Product
 import pytest
+from pytest import approx
 from unittest.mock import patch
 
 
@@ -125,10 +126,11 @@ class TestConfirmOrder():
 
 
 class TestShippingCalculator():
-    @patch('src.Order.Regions.get_region_of')
-    def test_shipping_for_uk_order_under_hundred_pounds(self, mock_region):
-        mock_region.return_value = "UK"
-        order = Order()
-        product = Product(327, stock=1, price=99.99)
-        order.add_item(product, 1)
-        assert order.get_shipping_cost() == 5.99
+    def test_shipping_for_uk_order_under_hundred_pounds(self):
+        with patch('src.Order.Regions.get_region_of') as mock_region:
+            mock_region.return_value = "UK"
+            order = Order()
+            product = Product(327, stock=1, price=99.99)
+            order.add_item(product, 1)
+            expected_shipping_cost = 5.99
+            assert order.get_shipping_cost() == approx(expected_shipping_cost)
