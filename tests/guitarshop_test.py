@@ -1,6 +1,7 @@
 from src.Order import Order
 from src.Product import Product
 import pytest
+from unittest.mock import patch
 
 
 class TestAddItem():
@@ -121,3 +122,13 @@ class TestConfirmOrder():
         assert order.status == "Open"
         order.confirm()
         assert order.status == "Confirmed"
+
+
+class TestShippingCalculator():
+    @patch('src.Order.Regions.get_region_of')
+    def test_shipping_for_uk_order_under_hundred_pounds(self, mock_region):
+        mock_region.return_value = "UK"
+        order = Order()
+        product = Product(327, stock=1, price=99.99)
+        order.add_item(product, 1)
+        assert order.get_shipping_cost() == 5.99
